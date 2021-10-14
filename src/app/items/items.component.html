@@ -1,0 +1,37 @@
+<header>
+  <nav>
+    <ul>
+      <li mat-ripple routerLinkActive="active">
+        <a routerLink="." [queryParams]="{ pipeline: 'todo' }">
+          To do
+          <span class="count">
+            {{ (itemService.itemsTodo$ | async)?.length }}
+          </span>
+        </a>
+      </li>
+      <li mat-ripple routerLinkActive="active">
+        <a routerLink="." [queryParams]="{ pipeline: 'under-review' }">
+          Under Review
+          <span class="count">
+            {{ (itemService.itemsUnderReview$ | async)?.length }}
+          </span>
+        </a>
+      </li>
+      <li mat-ripple routerLinkActive="active">
+        <a routerLink="." [queryParams]="{ pipeline: 'reviewed' }">
+          Reviewed
+          <span class="count">
+            {{ (itemService.itemsReviewed$ | async)?.length }}
+          </span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+<section>
+  <p *ngIf="(items | async)?.length === 0">No items to handle.</p>
+  <article *ngFor="let item of items | async">
+    <!-- <item-component [item]="item"></item-component> -->
+    <span data-testid="item-component">{{ item | json }}</span>
+  </article>
+</section>
